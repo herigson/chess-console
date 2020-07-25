@@ -1,16 +1,15 @@
 ﻿using System;
-using tabuleiro;
+using chess_console.board;
 
-namespace xadrez_console
+namespace chess_console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Posicao P;
-            P = new Posicao(3, 4);
+            Board board = new Board(8, 8);
+            Console.WriteLine();
 
-            Console.WriteLine("Posição: " + P);
         }
     }
 }

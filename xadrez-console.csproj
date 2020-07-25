@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="tabuleiro\" />
+    <Folder Include="board\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".gitignore" />
