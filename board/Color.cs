@@ -1,4 +1,4 @@
-﻿namespace chess_console.board
+﻿namespace board
 {
     public enum Color
     {

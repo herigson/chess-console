@@ -1,5 +1,6 @@
 ﻿using System;
-using chess_console.board;
+using board;
+
 namespace chess_console
 {
     public class Screen

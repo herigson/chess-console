@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xadrez-console", "xadrez-console.csproj", "{F26556E2-FA09-41A4-A864-FB4C4CE9DE15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chess-console", "chess-console.csproj", "{F26556E2-FA09-41A4-A864-FB4C4CE9DE15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

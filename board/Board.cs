@@ -1,5 +1,5 @@
 ﻿using System;
-namespace chess_console.board
+namespace board
 {
     public class Board
     {
@@ -17,6 +17,12 @@ namespace chess_console.board
         public Piece Piece(int line, int column)
         {
             return Pieces[line, column];
+        }
+
+        public void InsertPiece(Piece piece, Position position)
+        {
+            Pieces[position.Line, position.Column] = piece;
+            piece.Position = position;
         }
     }
 }

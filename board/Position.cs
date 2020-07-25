@@ -1,5 +1,5 @@
 ﻿using System;
-namespace chess_console.board
+namespace board
 {
     public class Position
     {
