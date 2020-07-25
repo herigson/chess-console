@@ -13,5 +13,10 @@ namespace chess_console.board
             Columns = columns;
             Pieces = new Piece[lines, columns];
         }
+
+        public Piece Piece(int line, int column)
+        {
+            return Pieces[line, column];
+        }
     }
 }
