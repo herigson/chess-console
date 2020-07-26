@@ -15,5 +15,10 @@ namespace board
             NumberOfMovements = 0;
             Board = board;
         }
+
+        public void IncrementeNumberOfMovements()
+        {
+            NumberOfMovements++;
+        }
     }
 }

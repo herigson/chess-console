@@ -8,16 +8,24 @@ namespace chess_console
     {
         static void Main(string[] args)
         {
-            try { 
-            Board board = new Board(8, 8);
+            try
+            {
+                ChessMatch match = new ChessMatch();
 
-            board.InsertPiece(new Rook(board, Color.Black), new Position(0, 0));
-            board.InsertPiece(new Rook(board, Color.Black), new Position(1, 3));
-            board.InsertPiece(new King(board, Color.Black), new Position(2, 4));
-            board.InsertPiece(new King(board, Color.White), new Position(0, 5));
-            Screen.Print(board);
+                while (!match.Finished)
+                {
+                    Console.Clear();
+                    Screen.PrintBoard(match.Board);
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origin = Screen.ReadChessPosition().ToPosition();
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.ReadChessPosition().ToPosition();
+
+                    match.ExecuteAMovement(origin, destiny);
+                }
             }
-            catch(BoardException e)
+            catch (BoardException e)
             {
                 Console.WriteLine(e.Message);
             }
