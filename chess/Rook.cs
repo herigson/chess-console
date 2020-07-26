@@ -23,7 +23,7 @@ namespace chess
             Position position = new Position(0, 0);
 
             //Up
-            position.SetValues(position.Line - 1, position.Column);
+            position.SetValues(Position.Line - 1, Position.Column);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -33,7 +33,7 @@ namespace chess
             }
 
             //Down
-            position.SetValues(position.Line + 1, position.Column);
+            position.SetValues(Position.Line + 1, Position.Column);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -43,7 +43,7 @@ namespace chess
             }
 
             //Right
-            position.SetValues(position.Line, position.Column + 1);
+            position.SetValues(Position.Line, Position.Column + 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
@@ -53,7 +53,7 @@ namespace chess
             }
 
             //Left
-            position.SetValues(position.Line, position.Column - 1);
+            position.SetValues(Position.Line, Position.Column - 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;

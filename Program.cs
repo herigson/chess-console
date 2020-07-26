@@ -26,6 +26,7 @@ namespace chess_console
                     Console.Clear();
                     Screen.PrintBoard(match.Board, possiblePositions);
 
+                    Console.WriteLine();
                     Console.Write("Destiny: ");
                     Position destiny = Screen.ReadChessPosition().ToPosition();
 

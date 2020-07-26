@@ -22,42 +22,42 @@ namespace chess
 
             Position position = new Position(0, 0);
 
-            //Acima
-            position.SetValues(position.Line - 1, position.Column);
+            //Up
+            position.SetValues(Position.Line - 1, Position.Column);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
 
-            //Nordeste
-            position.SetValues(position.Line - 1, position.Column + 1);
+            //Northeast
+            position.SetValues(Position.Line - 1, Position.Column + 1);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
-            //direita
-            position.SetValues(position.Line, position.Column + 1);
-            if (Board.ValidPosition(position) && CanMove(position))
-                mat[position.Line, position.Column] = true;
-
-            //Sudeste
-            position.SetValues(position.Line + 1, position.Column + 1);
+            //Right
+            position.SetValues(Position.Line, Position.Column + 1);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
 
-            //Abaixo
-            position.SetValues(position.Line + 1, position.Column);
+            //Southeast
+            position.SetValues(Position.Line + 1, Position.Column + 1);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
 
-            //Sudoeste
-            position.SetValues(position.Line + 1, position.Column - 1);
+            //Down
+            position.SetValues(Position.Line + 1, Position.Column);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
 
-            //Esquerda
-            position.SetValues(position.Line , position.Column - 1);
+            //South-west
+            position.SetValues(Position.Line + 1, Position.Column - 1);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
 
-            //Noroeste
-            position.SetValues(position.Line -1, position.Column - 1);
+            //Left
+            position.SetValues(Position.Line , Position.Column - 1);
+            if (Board.ValidPosition(position) && CanMove(position))
+                mat[position.Line, position.Column] = true;
+
+            //Northwest
+            position.SetValues(Position.Line -1, Position.Column - 1);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
 

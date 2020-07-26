@@ -36,6 +36,7 @@ namespace chess_console
                         Console.BackgroundColor = defaultBackgroundColor;
 
                     PrintPiece(board.Piece(i, j));
+                    Console.BackgroundColor = defaultBackgroundColor;
                 }
                 Console.WriteLine();
             }
