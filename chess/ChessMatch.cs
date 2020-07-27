@@ -48,7 +48,7 @@ namespace chess
         public void ValidateDestinyPosition(Position origin, Position destiny)
         {
             if (!Board.Piece(origin).CanMoveTo(destiny))
-                throw new Exception("Destiny position invalid!");
+                throw new BoardException("Destiny position invalid!");
         }
 
         private void ChangePlayer()
