@@ -17,6 +17,8 @@ namespace chess_console
             Console.WriteLine();
             Console.WriteLine("Shift: " + match.Shift);
             Console.WriteLine("Awaiting move: " + match.CurrentPlayer);
+            if (match.Check)
+                Console.WriteLine("Check!");
 
         }
 
@@ -36,7 +38,7 @@ namespace chess_console
         public static void PrintSet(HashSet<Piece> set)
         {
             Console.Write("[");
-            foreach(Piece piece in set)
+            foreach (Piece piece in set)
                 Console.Write(piece + " ");
             Console.Write("]");
         }

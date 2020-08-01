@@ -21,6 +21,11 @@ namespace board
             NumberOfMovements++;
         }
 
+        public void DecrementNumberOfMovements()
+        {
+            NumberOfMovements--;
+        }
+
         public bool ThereArePossibleMoviments()
         {
             bool[,] possibleMovements = PossibleMovements();
