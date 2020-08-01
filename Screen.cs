@@ -16,9 +16,16 @@ namespace chess_console
 
             Console.WriteLine();
             Console.WriteLine("Shift: " + match.Shift);
-            Console.WriteLine("Awaiting move: " + match.CurrentPlayer);
-            if (match.Check)
-                Console.WriteLine("Check!");
+            if (!match.Finished)
+            {
+                Console.WriteLine("Awaiting move: " + match.CurrentPlayer);
+                if (match.Check)
+                    Console.WriteLine("Check!");
+            }else
+            {
+                Console.WriteLine("CHECKEMATE!");
+                Console.WriteLine("Winner: "+ match.CurrentPlayer);
+            }
 
         }
 

@@ -43,7 +43,7 @@ namespace chess
         {
             Piece piece = Board.RemovePiece(destiny);
             piece.DecrementNumberOfMovements();
-            if(capturedPice != null)
+            if (capturedPice != null)
             {
                 Board.InsertPiece(capturedPice, destiny);
                 Captured.Remove(capturedPice);
@@ -69,8 +69,15 @@ namespace chess
             else
                 Check = false;
 
-            Shift++;
-            ChangePlayer();
+            if (TestCheckMate(Opponent(CurrentPlayer)))
+            {
+                Finished = true;
+            }
+            else
+            {
+                Shift++;
+                ChangePlayer();
+            }
         }
 
         public void ValidateOriginPosition(Position position)
@@ -154,6 +161,32 @@ namespace chess
             return false;
         }
 
+        public bool TestCheckMate(Color color)
+        {
+            if (!ItIsInCheck(color))
+            {
+                return false;
+            }
+
+            foreach (Piece piece in PiecesInGame(color))
+            {
+                bool[,] mat = piece.PossibleMovements();
+                for (int i = 0; i < Board.Lines; i++)
+                    for (int j = 0; j < Board.Lines; j++)
+                        if (mat[i, j])
+                        {
+                            Position origin = piece.Position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPice = ExecuteAMovement(origin, destiny);
+                            bool testCheck = ItIsInCheck(color);
+                            UndoTheMovement(origin, destiny, capturedPice);
+                            if (!testCheck)
+                                return false;
+                        }
+            }
+            return true;
+        }
+
         public void InsertNewPiece(char column, int line, Piece piece)
         {
             Board.InsertPiece(piece, new ChessPosition(column, line).ToPosition());
@@ -163,18 +196,24 @@ namespace chess
         private void InsertPieces()
         {
             InsertNewPiece('c', 1, new Rook(Board, Color.White));
-            InsertNewPiece('c', 2, new Rook(Board, Color.White));
-            InsertNewPiece('d', 2, new Rook(Board, Color.White));
-            InsertNewPiece('e', 2, new Rook(Board, Color.White));
-            InsertNewPiece('e', 1, new Rook(Board, Color.White));
             InsertNewPiece('d', 1, new King(Board, Color.White));
+            InsertNewPiece('h', 7, new Rook(Board, Color.White));
 
-            InsertNewPiece('c', 7, new Rook(Board, Color.Black));
-            InsertNewPiece('c', 8, new Rook(Board, Color.Black));
-            InsertNewPiece('d', 7, new Rook(Board, Color.Black));
-            InsertNewPiece('e', 7, new Rook(Board, Color.Black));
-            InsertNewPiece('e', 8, new Rook(Board, Color.Black));
-            InsertNewPiece('d', 8, new King(Board, Color.Black));
+            InsertNewPiece('a', 8, new King(Board, Color.Black));
+            InsertNewPiece('b', 8, new Rook(Board, Color.Black));
+            /* InsertNewPiece('c', 1, new Rook(Board, Color.White));
+             InsertNewPiece('c', 2, new Rook(Board, Color.White));
+             InsertNewPiece('d', 2, new Rook(Board, Color.White));
+             InsertNewPiece('e', 2, new Rook(Board, Color.White));
+             InsertNewPiece('e', 1, new Rook(Board, Color.White));
+             InsertNewPiece('d', 1, new King(Board, Color.White));
+
+             InsertNewPiece('c', 7, new Rook(Board, Color.Black));
+             InsertNewPiece('c', 8, new Rook(Board, Color.Black));
+             InsertNewPiece('d', 7, new Rook(Board, Color.Black));
+             InsertNewPiece('e', 7, new Rook(Board, Color.Black));
+             InsertNewPiece('e', 8, new Rook(Board, Color.Black));
+             InsertNewPiece('d', 8, new King(Board, Color.Black));*/
         }
     }
 }
