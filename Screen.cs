@@ -1,11 +1,46 @@
 ﻿using System;
 using board;
 using chess;
+using System.Collections.Generic;
 
 namespace chess_console
 {
     public class Screen
     {
+
+        public static void PrintMatch(ChessMatch match)
+        {
+            SetConsoleForegroundColorToWhitePieces();
+            PrintBoard(match.Board);
+            PrintCapturedPieces(match);
+
+            Console.WriteLine();
+            Console.WriteLine("Shift: " + match.Shift);
+            Console.WriteLine("Awaiting move: " + match.CurrentPlayer);
+
+        }
+
+        public static void PrintCapturedPieces(ChessMatch match)
+        {
+            Console.WriteLine("Captured pieces:");
+            Console.Write("White: ");
+            PrintSet(match.CapturedPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            SetConsoleForegroundColorToBlackPieces();
+            PrintSet(match.CapturedPieces(Color.Black));
+            SetConsoleForegroundColorToWhitePieces();
+            Console.WriteLine();
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[");
+            foreach(Piece piece in set)
+                Console.Write(piece + " ");
+            Console.Write("]");
+        }
+
         public static void PrintBoard(Board board)
         {
             for (int i = 0; i < board.Lines; i++)
@@ -18,6 +53,16 @@ namespace chess_console
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static void SetConsoleForegroundColorToBlackPieces()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+        }
+
+        public static void SetConsoleForegroundColorToWhitePieces()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void PrintBoard(Board board, bool[,] PossiblePositions)
