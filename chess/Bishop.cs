@@ -3,10 +3,11 @@ using board;
 
 namespace chess
 {
-    public class Rook : Piece
+    public class Bishop : Piece
     {
-        public Rook(Board board, Color color) : base(board, color)
+        public Bishop(Board board, Color color) : base(board, color)
         {
+
         }
 
         private bool CanMove(Position position)
@@ -22,53 +23,55 @@ namespace chess
 
             Position position = new Position(0, 0);
 
-            //Up
-            position.SetValues(Position.Line - 1, Position.Column);
+            //Northeast 
+            position.SetValues(Position.Line - 1, Position.Column + 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.Piece(position) != null && Board.Piece(position).Color != Color)
                     break;
-                position.Line -= 1;
+
+                position.SetValues(position.Line - 1, position.Column + 1);
             }
 
-            //Down
-            position.SetValues(Position.Line + 1, Position.Column);
+            //Southeast
+            position.SetValues(Position.Line + 1, Position.Column + 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.Piece(position) != null && Board.Piece(position).Color != Color)
                     break;
-                position.Line += 1;
+
+                position.SetValues(position.Line + 1, position.Column + 1);
             }
 
-            //Right
-            position.SetValues(Position.Line, Position.Column + 1);
+            //South-west
+            position.SetValues(Position.Line + 1, Position.Column - 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.Piece(position) != null && Board.Piece(position).Color != Color)
                     break;
-                position.Column += 1;
+
+                position.SetValues(position.Line + 1, position.Column - 1);
             }
 
-            //Left
-            position.SetValues(Position.Line, Position.Column - 1);
+            //Northwest
+            position.SetValues(Position.Line - 1, Position.Column - 1);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Line, position.Column] = true;
                 if (Board.Piece(position) != null && Board.Piece(position).Color != Color)
                     break;
-                position.Column -= 1;
+                position.SetValues(position.Line - 1, position.Column - 1);
             }
 
             return mat;
         }
 
-
         public override string ToString()
         {
-            return "♖";
+            return "♝";
         }
     }
 }
