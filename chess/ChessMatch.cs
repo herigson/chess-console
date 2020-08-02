@@ -39,7 +39,7 @@ namespace chess
             }
             //#SpecialPlay Castling short
 
-            if(piece is King && destiny.Column == origin.Column + 2)
+            if (piece is King && destiny.Column == origin.Column + 2)
             {
                 Position rookOrigin = new Position(origin.Line, origin.Column + 3);
                 Position rookDestiny = new Position(origin.Line, origin.Column + 1);
@@ -52,7 +52,7 @@ namespace chess
 
             if (piece is King && destiny.Column == origin.Column - 2)
             {
-                Position rookOrigin = new Position(origin.Line, origin.Column -4);
+                Position rookOrigin = new Position(origin.Line, origin.Column - 4);
                 Position rookDestiny = new Position(origin.Line, origin.Column - 1);
                 Piece rook = Board.RemovePiece(rookOrigin);
                 rook.IncrementeNumberOfMovements();
@@ -60,12 +60,12 @@ namespace chess
             }
 
             //#SpecialPlay EnPassant
-            if(piece is Pawn)
+            if (piece is Pawn)
             {
-                if(origin.Column != destiny.Column && capturedPiece == null)
+                if (origin.Column != destiny.Column && capturedPiece == null)
                 {
                     Position pawnPosition;
-                    if(piece.Color == Color.White)
+                    if (piece.Color == Color.White)
                         pawnPosition = new Position(destiny.Line + 1, destiny.Column);
                     else
                         pawnPosition = new Position(destiny.Line - 1, destiny.Column);
@@ -102,7 +102,7 @@ namespace chess
             //#SpecialPlay Castling long
             if (piece is King && destiny.Column == origin.Column - 2)
             {
-                Position rookOrigin = new Position(origin.Line, origin.Column -4);
+                Position rookOrigin = new Position(origin.Line, origin.Column - 4);
                 Position rookDestiny = new Position(origin.Line, origin.Column - 1);
                 Piece rook = Board.RemovePiece(rookDestiny);
                 rook.DecrementNumberOfMovements();
@@ -111,13 +111,13 @@ namespace chess
 
             //#SpecialPlay En Passant
 
-            if(piece is Pawn)
+            if (piece is Pawn)
             {
                 if (origin.Column != destiny.Column && capturedPice == VulnerableEnPassant)
                 {
                     Piece pawn = Board.RemovePiece(destiny);
                     Position pawnPosition;
-                    if(piece.Color == Color.White)
+                    if (piece.Color == Color.White)
                     {
                         pawnPosition = new Position(3, destiny.Column);
                     }
@@ -143,6 +143,20 @@ namespace chess
                 throw new BoardException("You cannot put yourself in check!");
             }
 
+            Piece piece = Board.Piece(destiny);
+
+            // #SpecialPlay Promotion
+
+            if ((piece.Color == Color.White && destiny.Line == 0) || (piece.Color == Color.Black && destiny.Line == 7))
+            {
+                piece = Board.RemovePiece(destiny);
+                Pieces.Remove(piece);
+
+                Piece queen = new Queen(Board, piece.Color);
+                Board.InsertPiece(queen, destiny);
+                Pieces.Add(queen);
+            }
+
             if (ItIsInCheck(Opponent(CurrentPlayer)))
             {
                 Check = true;
@@ -160,7 +174,7 @@ namespace chess
                 ChangePlayer();
             }
 
-            Piece piece = Board.Piece(destiny);
+
 
             //#SpecialPlay EnPassant
 
