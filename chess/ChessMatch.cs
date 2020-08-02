@@ -35,6 +35,27 @@ namespace chess
             {
                 Captured.Add(capturedPiece);
             }
+            //#SpecialPlay Castling short
+
+            if(piece is King && destiny.Column == origin.Column + 2)
+            {
+                Position rookOrigin = new Position(origin.Line, origin.Column + 3);
+                Position rookDestiny = new Position(origin.Line, origin.Column + 1);
+                Piece rook = Board.RemovePiece(rookOrigin);
+                rook.IncrementeNumberOfMovements();
+                Board.InsertPiece(rook, rookDestiny);
+            }
+
+            //#SpecialPlay Castling long
+
+            if (piece is King && destiny.Column == origin.Column - 2)
+            {
+                Position rookOrigin = new Position(origin.Line, origin.Column -4);
+                Position rookDestiny = new Position(origin.Line, origin.Column - 1);
+                Piece rook = Board.RemovePiece(rookOrigin);
+                rook.IncrementeNumberOfMovements();
+                Board.InsertPiece(rook, rookDestiny);
+            }
 
             return capturedPiece;
         }
@@ -49,6 +70,26 @@ namespace chess
                 Captured.Remove(capturedPice);
             }
             Board.InsertPiece(piece, origin);
+
+            //#SpecialPlay Castling short
+            if (piece is King && destiny.Column == origin.Column + 2)
+            {
+                Position rookOrigin = new Position(origin.Line, origin.Column + 3);
+                Position rookDestiny = new Position(origin.Line, origin.Column + 1);
+                Piece rook = Board.RemovePiece(rookDestiny);
+                rook.DecrementNumberOfMovements();
+                Board.InsertPiece(rook, rookOrigin);
+            }
+
+            //#SpecialPlay Castling long
+            if (piece is King && destiny.Column == origin.Column - 2)
+            {
+                Position rookOrigin = new Position(origin.Line, origin.Column -4);
+                Position rookDestiny = new Position(origin.Line, origin.Column - 1);
+                Piece rook = Board.RemovePiece(rookDestiny);
+                rook.DecrementNumberOfMovements();
+                Board.InsertPiece(rook, rookOrigin);
+            }
         }
 
         public void MakeAPlay(Position origin, Position destiny)
@@ -200,7 +241,7 @@ namespace chess
             InsertNewPiece('b', 1, new Knight(Board, Color.White));
             InsertNewPiece('c', 1, new Bishop(Board, Color.White));
             InsertNewPiece('d', 1, new Queen(Board, Color.White));
-            InsertNewPiece('e', 1, new King(Board, Color.White));
+            InsertNewPiece('e', 1, new King(Board, Color.White, this));
             InsertNewPiece('f', 1, new Bishop(Board, Color.White));
             InsertNewPiece('g', 1, new Knight(Board, Color.White));
             InsertNewPiece('h', 1, new Rook(Board, Color.White));
@@ -217,7 +258,7 @@ namespace chess
             InsertNewPiece('b', 8, new Knight(Board, Color.Black));
             InsertNewPiece('c', 8, new Bishop(Board, Color.Black));
             InsertNewPiece('d', 8, new Queen(Board, Color.Black));
-            InsertNewPiece('e', 8, new King(Board, Color.Black));
+            InsertNewPiece('e', 8, new King(Board, Color.Black, this));
             InsertNewPiece('f', 8, new Bishop(Board, Color.Black));
             InsertNewPiece('g', 8, new Knight(Board, Color.Black));
             InsertNewPiece('h', 8, new Rook(Board, Color.Black));

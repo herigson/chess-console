@@ -32,11 +32,11 @@ namespace chess
             {
 
                 position.SetValues(Position.Line - 1, Position.Column);
-                if (Board.ValidPosition(position) && Free(Position))
+                if (Board.ValidPosition(position) && Free(position))
                     mat[position.Line, position.Column] = true;
 
                 position.SetValues(Position.Line - 2, Position.Column);
-                if (Board.ValidPosition(position) && Free(Position) && NumberOfMovements == 0)
+                if (Board.ValidPosition(position) && Free(position) && NumberOfMovements == 0)
                     mat[position.Line, position.Column] = true;
 
                 position.SetValues(Position.Line - 1, Position.Column - 1);
@@ -50,11 +50,11 @@ namespace chess
             else
             {
                 position.SetValues(Position.Line + 1, Position.Column);
-                if (Board.ValidPosition(position) && Free(Position))
+                if (Board.ValidPosition(position) && Free(position))
                     mat[position.Line, position.Column] = true;
 
                 position.SetValues(Position.Line + 2, Position.Column);
-                if (Board.ValidPosition(position) && Free(Position) && NumberOfMovements == 0)
+                if (Board.ValidPosition(position) && Free(position) && NumberOfMovements == 0)
                     mat[position.Line, position.Column] = true;
 
                 position.SetValues(Position.Line + 1, Position.Column - 1);

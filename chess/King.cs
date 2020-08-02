@@ -5,8 +5,11 @@ namespace chess
 {
     public class King : Piece
     {
-        public King(Board board, Color color) : base(board, color)
+        private ChessMatch Match;
+
+        public King(Board board, Color color, ChessMatch match) : base(board, color)
         {
+            Match = match;
         }
 
         private bool CanMove(Position position)
@@ -14,6 +17,13 @@ namespace chess
             Piece piece = Board.Piece(position);
             return piece == null || piece.Color != Color;
 
+        }
+
+        private bool TestRookToCastling(Position position)
+        {
+            Piece piece = Board.Piece(position);
+
+            return piece != null && piece is Rook && piece.Color == Color && piece.NumberOfMovements == 0;
         }
 
         public override bool[,] PossibleMovements()
@@ -60,6 +70,38 @@ namespace chess
             position.SetValues(Position.Line -1, Position.Column - 1);
             if (Board.ValidPosition(position) && CanMove(position))
                 mat[position.Line, position.Column] = true;
+
+
+            //#Special play Castling
+            if(NumberOfMovements == 0 && !Match.Check)
+            {
+                //#Special play castling short
+                Position positionRook = new Position(Position.Line, Position.Column + 3);
+                if (TestRookToCastling(positionRook))
+                {
+                    Position kingMoreOne = new Position(Position.Line, Position.Column + 1);
+                    Position kingMoreTwo = new Position(Position.Line, Position.Column + 2);
+
+                    if(Board.Piece(kingMoreOne) == null && Board.Piece(kingMoreTwo) == null)
+                    {
+                        mat[Position.Line, Position.Column + 2] = true;
+                    }
+                }
+
+                //#Special play castling long
+                Position positionRook2 = new Position(Position.Line, Position.Column + 3);
+                if (TestRookToCastling(positionRook))
+                {
+                    Position kingOneLess = new Position(Position.Line, Position.Column - 1);
+                    Position kingTwoLess = new Position(Position.Line, Position.Column - 2);
+                    Position kingThreeLess = new Position(Position.Line, Position.Column - 3);
+
+                    if (Board.Piece(kingOneLess) == null && Board.Piece(kingTwoLess) == null  && Board.Piece(kingThreeLess) == null)
+                    {
+                        mat[Position.Line, Position.Column - 2] = true;
+                    }
+                }
+            }
 
             return mat;
         }
